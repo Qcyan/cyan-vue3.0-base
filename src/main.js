@@ -6,6 +6,11 @@ import '@assets/js/rem.js'
 import plugin from './plugin'
 import { useVueComponents } from './vueComponents'
 
+// import { mockXHR } from '../mock'
+// if (process.env.NODE_ENV === 'production') {
+//  mockXHR()
+// }
+
 const app = createApp(App)
 app.use(store)
 app.use(router)

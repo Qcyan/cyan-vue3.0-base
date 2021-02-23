@@ -3,6 +3,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const isProduction = process.env.NODE_ENV === 'production'
 const path = require('path')
 const name = '叫号大屏'
+const port = process.env.port || process.env.npm_config_port || 8899 // dev port
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -15,7 +16,7 @@ module.exports = {
   lintOnSave: true,
   productionSourceMap: false,
   devServer: {
-    port: '8899',
+    port: port,
     open: false,
     overlay: {
       warnings: false,
@@ -28,7 +29,18 @@ module.exports = {
         pathRewrite: {
           '^/api': '/api'
         }
+      },
+      // [process.env.VUE_APP_BASE_API]: {
+      '/mock': {
+        target: `http://127.0.0.1:${port}/mock`,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''
+        }
       }
+    },
+    after: function() {
+      require('./mock/mock-server.js')
     }
   },
   // chainWebpack 这个库提供了一个 webpack 原始配置的上层抽象，使其可以定义具名的 loader 规则
