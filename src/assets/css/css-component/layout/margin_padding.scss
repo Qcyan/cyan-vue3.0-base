@@ -1,0 +1,145 @@
+//margin 0
+.#{$prefix-name}mg-0 {
+  margin: 0;
+}
+.#{$prefix-name}pd-0 {
+  padding: 0;
+}
+
+//rem padding
+@for $i from 1 through 50 {
+  .#{$prefix-name}pd-#{$i}re {
+    padding: rem($i);
+  }
+  .#{$prefix-name}pd-l-#{$i}re {
+    padding-left: rem($i);
+  }
+  .#{$prefix-name}pd-r-#{$i}re {
+    padding-right: rem($i);
+  }
+  .#{$prefix-name}pd-t-#{$i}re {
+    padding-top: rem($i);
+  }
+  .#{$prefix-name}pd-b-#{$i}re {
+    padding-bottom: rem($i);
+  }
+  .#{$prefix-name}pd-tb-#{$i}re {
+    padding-top: rem($i);
+    padding-bottom: rem($i);
+  }
+  .#{$prefix-name}pd-lr-#{$i}re {
+    padding-left: rem($i);
+    padding-right: rem($i);
+  }
+}
+
+// px padding
+@for $i from 1 through 50 {
+  .#{$prefix-name}pd-#{$i}px {
+    padding: #{$i}px;
+  }
+  .#{$prefix-name}pd-l-#{$i}px {
+    padding-left: #{$i}px;
+  }
+  .#{$prefix-name}pd-r-#{$i}px {
+    padding-right: #{$i}px;
+  }
+  .#{$prefix-name}pd-t-#{$i}px {
+    padding-top: #{$i}px;
+  }
+  .#{$prefix-name}pd-b-#{$i}px {
+    padding-bottom: #{$i}px;
+  }
+  .#{$prefix-name}pd-tb-#{$i}px {
+    padding-top: #{$i}px;
+    padding-bottom: #{$i}px;
+  }
+  .#{$prefix-name}pd-lr-#{$i}px {
+    padding-left: #{$i}px;
+    padding-right: #{$i}px;
+  }
+}
+
+//rpx padding
+@for $i from 1 through 50 {
+  .#{$prefix-name}pd-#{$i}rpx {
+    padding: rpx($i);
+  }
+  .#{$prefix-name}pd-l-#{$i}rpx {
+    padding-left: rpx($i);
+  }
+  .#{$prefix-name}pd-r-#{$i}rpx {
+    padding-right: rpx($i);
+  }
+  .#{$prefix-name}pd-t-#{$i}rpx {
+    padding-top: rpx($i);
+  }
+  .#{$prefix-name}pd-b-#{$i}rpx {
+    padding-bottom: rpx($i);
+  }
+  .#{$prefix-name}pd-tb-#{$i}rpx {
+    padding-top: rpx($i);
+    padding-bottom: rpx($i);
+  }
+  .#{$prefix-name}pd-lr-#{$i}rpx {
+    padding-left: rpx($i);
+    padding-right: rpx($i);
+  }
+}
+
+//rpx margin
+@for $i from 1 through 50 {
+  .#{$prefix-name}mg-#{$i}rpx {
+    margin: rpx($i);
+  }
+  .#{$prefix-name}mg-l-#{$i}rpx {
+    margin-left: rpx($i);
+  }
+  .#{$prefix-name}mg-r-#{$i}rpx {
+    margin-right: rpx($i);
+  }
+  .#{$prefix-name}mg-t-#{$i}rpx {
+    margin-top: rpx($i);
+  }
+  .#{$prefix-name}mg-b-#{$i}rpx {
+    margin-bottom: rpx($i);
+  }
+  .#{$prefix-name}mg-tb-#{$i}rpx {
+    margin-top: rpx($i);
+    margin-bottom: rpx($i);
+  }
+  .#{$prefix-name}mg-lr-#{$i}rpx {
+    margin-left: rpx($i);
+    margin-right: rpx($i);
+  }
+}
+
+//rem margin
+@for $i from 1 through 50 {
+  .#{$prefix-name}mg-#{$i}re {
+    margin: rem($i);
+  }
+  .#{$prefix-name}mg-l-#{$i}re {
+    margin-left: rem($i);
+  }
+  .#{$prefix-name}mg-r-#{$i}re {
+    margin-right: rem($i);
+  }
+  .#{$prefix-name}mg-t-#{$i}re {
+    margin-top: rem($i);
+  }
+  .#{$prefix-name}mg-b-#{$i}re {
+    margin-bottom: rem($i);
+  }
+  .#{$prefix-name}mg-tb-#{$i}re {
+    margin-top: rem($i);
+    margin-bottom: rem($i);
+  }
+  .#{$prefix-name}mg-lr-#{$i}re {
+    margin-left: rem($i);
+    margin-right: rem($i);
+  }
+}
+
+
+

@@ -1,0 +1,11 @@
+//初始化列表
+.#{$prefix-name}reset-ul {
+  @extend %reset-ul;
+}
+
+//初始化列表信息
+%reset-ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}

@@ -1,0 +1,7 @@
+@for $i from 12 through 50 {
+  .#{$prefix-name}f-#{$i}px {
+    color:pink;
+    font-size:#{$i}px;
+  }
+}
+

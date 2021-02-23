@@ -1,0 +1,12 @@
+//宽高
+@mixin wh($width, $height) {
+	width: $width;
+	height: $height;
+}
+
+body,
+html {
+	@include wh(100%, 100%);
+	background-color: $fill-base;
+}
+

@@ -1,0 +1,54 @@
+//v-cloak in vue
+[v-cloak] {
+  display: none;
+}
+
+//box-sizing:border-box
+.#{$prefix-name}bs-bb {
+  @extend %border-box;
+}
+
+//overflow-hidden
+.#{$prefix-name}overflow-hide {
+  overflow: hidden;
+}
+
+/*加粗*/
+.#{$prefix-name}f-b {
+  font-weight: bold;
+}
+
+//border盒子
+%border-box {
+  box-sizing: border-box;
+}
+
+/*清除浮动*/
+%clear-float {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+//初始化列表信息
+%reset-ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+//表单的padding
+%pd-4-12 {
+  padding: 4px 12px;
+}
+
+%default-line-height {
+  line-height: 1.42857143;
+}
+
+

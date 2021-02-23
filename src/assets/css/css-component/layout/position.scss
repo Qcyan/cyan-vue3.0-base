@@ -1,0 +1,50 @@
+//**********
+//  mixin
+//***********
+
+//定位全屏
+@mixin fixed-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+//定位上下左右居中
+@mixin absolute-c{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+//定位上下居中
+@mixin absolute-tb {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+//定位左右居中
+@mixin absolute-lr {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+//**********
+//  布局
+//***********
+
+.#{$prefix-name}ps-r {
+	position: relative;
+}
+
+.#{$prefix-name}ps-a {
+	position: absolute;
+}
+
+.#{$prefix-name}ps-f {
+	position: fixed;
+}

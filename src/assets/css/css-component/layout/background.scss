@@ -1,0 +1,18 @@
+@mixin background($name,$color) {
+  .#{$prefix-name}bg-#{$name} {
+    background-color: #{$color};
+  }
+}
+// 背景图片地址和大小
+@mixin bg($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+
+@each $name,$color in $color-group{
+  @include background($name,$color);
+}
+
+

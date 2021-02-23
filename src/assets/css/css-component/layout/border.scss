@@ -1,0 +1,89 @@
+//设置边框颜色
+@mixin border($name,$color) {
+  .#{$prefix-name}bd-l-#{$name} {
+    border-left: 1px solid #{$color};
+  }
+  .#{$prefix-name}bd-r-#{$name} {
+    border-right: 1px solid #{$color};
+  }
+  .#{$prefix-name}bd-lr-#{$name} {
+    border-left: 1px solid #{$color};
+    border-right: 1px solid #{$color};
+  }
+  .#{$prefix-name}bd-t-#{$name} {
+    border-top: 1px solid #{$color};
+  }
+  .#{$prefix-name}bd-b-#{$name} {
+    border-bottom: 1px solid #{$color};
+  }
+  .#{$prefix-name}bd-tb-#{$name} {
+    border-top: 1px solid #{$color};
+    border-bottom: 1px solid #{$color};
+  }
+  .#{$prefix-name}bd-#{$name} {
+    border: 1px solid #{$color};
+  }
+}
+
+//设置边框
+@mixin border-weight($val){
+  .#{$prefix-name}bd-w-#{$val} {
+    border-width: #{$val}px;
+  }
+  .#{$prefix-name}bd-w-t-#{$val} {
+    border-top-width: #{$val}px;
+  }
+  .#{$prefix-name}bd-w-b-#{$val} {
+    border-bottom-width: #{$val}px;
+  }
+  .#{$prefix-name}bd-w-l-#{$val} {
+    border-left-width: #{$val}px;
+  }
+  .#{$prefix-name}bd-w-r-#{$val} {
+    border-right-width: #{$val}px;
+  }
+}
+//圆角
+@mixin borderRadius($radius:4px) {
+  border-radius: $radius;
+}
+
+//**********
+//  定义基础值
+//***********
+//边框为类型值
+$border-type-group:
+  ('', ''),
+  (-l, -left),
+  (-r, -right),
+  (-t, -top),
+  (-b, -bottom);
+
+//**********
+//  布局
+//***********
+
+//设置无边框
+@each $name, $type in $border-type-group {
+  .#{$prefix-name}bd#{$name}-none {
+    border#{$type}: none !important;
+  }
+}
+
+//边框颜色
+@each $name, $color in $color-group {
+  @include border($name, $color);
+}
+
+//border-weight 边框的粗度
+@for $val from 1 through 10 {
+  @include border-weight($val);
+}
+
+//border-weight 边框的粗度
+@for $val from 1 through 20 {
+  .#{$prefix-name}bd-radius-#{$val} {
+    border-radius: #{$val}px !important;
+  }
+}
+
