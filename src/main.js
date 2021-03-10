@@ -5,6 +5,7 @@ import store from './store'
 import '@assets/js/rem.js'
 import plugin from './plugin'
 import { useVueComponents } from './vueComponents'
+import config from '@/config'
 
 // import { mockXHR } from '../mock'
 // if (process.env.NODE_ENV === 'production') {
@@ -14,6 +15,7 @@ import { useVueComponents } from './vueComponents'
 const app = createApp(App)
 app.use(store)
 app.use(router)
+app.config.globalProperties.$config = config
 
 // 项目内引入的插件
 plugin(app)
