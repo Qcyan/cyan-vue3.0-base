@@ -141,5 +141,32 @@
   }
 }
 
+//px margin
+@for $i from 1 through 50 {
+  .#{$prefix-name}mg-#{$i}px {
+    margin: #{$i}px;
+  }
+  .#{$prefix-name}mg-l-#{$i}px {
+    margin-left:#{$i}px;
+  }
+  .#{$prefix-name}mg-r-#{$i}px {
+    margin-right: #{$i}px;
+  }
+  .#{$prefix-name}mg-t-#{$i}px {
+    margin-top: #{$i}px;
+  }
+  .#{$prefix-name}mg-b-#{$i}px {
+    margin-bottom: #{$i}px;
+  }
+  .#{$prefix-name}mg-tb-#{$i}px {
+    margin-top: #{$i}px;
+    margin-bottom: #{$i}px;
+  }
+  .#{$prefix-name}mg-lr-#{$i}px {
+    margin-left: #{$i}px;
+    margin-right: #{$i}px;
+  }
+}
+
 
 

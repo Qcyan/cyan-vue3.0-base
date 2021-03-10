@@ -11,6 +11,8 @@
   </div>
 
   <p>aboutValue:{{ isValue || "" }}</p>
+
+  <div id="textClass"></div>
 </template>
 
 <script>
@@ -25,6 +27,8 @@ import {
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import * as home from '@/api/home'
+import { formatTime, createUniqueString } from '@/utils/filter/index.js'
+import { addClass, removeClass } from '@/utils/util.js'
 
 export default {
   name: 'Home',
@@ -34,9 +38,18 @@ export default {
   setup() {
     const { ctx } = getCurrentInstance()
 
+    let test = formatTime(1514060000000, '{y}--{m}--{d} 周{a}')
+    //    let test2 = addClass(document.getElementById('textClass'),'imag')
+    // let test3 = createUniqueString()
+    // console.log(test, test2, test3)
+
     console.log(ctx)
     console.log(ctx.$axios)
     console.log(ctx.$store)
+
+    ctx.$Axios.get('/mock/comment/get.action', {}).then((res) => {
+      console.log(res.data)
+    })
 
     let { x, double: doubleX } = init()
     let isValue = ref(null)
@@ -71,6 +84,12 @@ function init() {
     }).then(res => {
       console.log(res)
     })
+
+
+    home.user().then(res => {
+      console.log(res)
+    })
+
   }
 
   return { x, double }

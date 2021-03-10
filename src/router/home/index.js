@@ -1,5 +1,6 @@
 const home = {
-  path: '/',
+  path: '',
+  redirect: 'home',
   component: () => import('@/views/layout.vue'),
   children: [
     {

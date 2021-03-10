@@ -7,7 +7,7 @@ let loadingInstance
 
 // 柯里化 axios
 const $axios = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+//  baseURL: process.env.VUE_APP_BASE_API,
   timeout: 15000,
   headers: {
     'X-Requested-With': 'XMLHttpRequest'// "该请求是 AJAX 异步HTTP请求
@@ -25,6 +25,9 @@ responseInterceptors()
 function requestInterceptors() {
   $axios.interceptors.request.use((axiosConfig) => {
     //    loadingInstance = ElLoading.service()
+    // axios proxy
+    setProxy(axiosConfig)
+
     $loading()
     return axiosConfig
   })
@@ -55,6 +58,25 @@ function responseInterceptors() {
 
 export function useAxios(app) {
   app.config.globalProperties.$Axios = $axios
+}
+
+// ssr axios proxy
+function setProxy(axiosConfig) {
+  let url = axiosConfig.url
+
+  console.log(url)
+  let baseUrl = [
+    /^\/api/,
+    /^\/mock/
+  ]
+  let hasBaseUrl = false
+  for (let i = 0; i < baseUrl.length; i++) {
+    if (baseUrl[i].test(url)) {
+      hasBaseUrl = true
+      break
+    }
+  }
+  if (!hasBaseUrl) axiosConfig.url = `/api/pacs${url}`
 }
 
 export default $axios
