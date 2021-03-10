@@ -32,15 +32,12 @@ module.exports = {
       },
       // [process.env.VUE_APP_BASE_API]: {
       '/mock': {
-        target: `http://127.0.0.1:${port}/mock`,
+        target: `http://localhost:3000`,
         changeOrigin: true,
         pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''
+          '^/mock': ''
         }
       }
-    },
-    after: function() {
-      require('./mock/mock-server.js')
     }
   },
   // chainWebpack 这个库提供了一个 webpack 原始配置的上层抽象，使其可以定义具名的 loader 规则

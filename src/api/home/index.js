@@ -8,3 +8,10 @@ export const listPrinterConfigs = data => {
     params: data
   })
 }
+
+export const user = () => {
+  return $axios({
+    url: `/mock/comment/get.action`,
+    method: 'get',
+  })
+}
