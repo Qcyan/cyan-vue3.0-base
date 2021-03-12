@@ -86,6 +86,21 @@ export function param(json) {
 }
 
 /**
+ * 获取URL中某个参数的值
+ * @param {String} name
+ * @returns {String}
+ */
+export function getQueryString(name) {
+  var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+  var res = window.location.search.substr(1).match(reg)
+  if (res[2]) {
+    return res[2]
+  } else {
+    return null
+  }
+}
+
+/**
  * Merges two objects, giving the last one precedence
  * @param {Object} target
  * @param {(Object|Array)} source
@@ -110,7 +125,7 @@ export function objectMerge(target, source) {
 }
 
 /**
- * This is just a simple version of deep copy
+ *  深拷贝 This is just a simple version of deep copy
  * Has a lot of edge cases bug
  * If you want to use a perfect deep copy, use lodash's _.cloneDeep
  * @param {Object} source
