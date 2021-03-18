@@ -7,7 +7,7 @@ let loadingInstance
 
 // 柯里化 axios
 const $axios = axios.create({
-//  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: '',
   timeout: 15000,
   headers: {
     'X-Requested-With': 'XMLHttpRequest'// "该请求是 AJAX 异步HTTP请求
