@@ -15,8 +15,8 @@ export default {
     })
 
     const requestSifou = async() => {
-      const { status, data } = await ctx.$request.get('/mock/comment/get.action')
-      console.log(data)
+      const { result } = await ctx.$request.get('/comment/get.action')
+      console.log(result)
     }
     requestSifou()
   }
