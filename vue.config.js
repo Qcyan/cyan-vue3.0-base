@@ -4,6 +4,8 @@ const isProduction = process.env.NODE_ENV === 'production'
 const path = require('path')
 const name = '叫号大屏'
 const port = process.env.port || process.env.npm_config_port || 8899 // dev port
+const apiConfig = require('./src/api.config')
+const MY_ENV = process.env.MY_ENV
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -37,16 +39,37 @@ module.exports = {
         pathRewrite: {
           '^/mock': ''
         }
+      },
+      '/jianshu': {
+        target: apiConfig(MY_ENV, 'jianshu'),
+        secure: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/jianshu': ''
+        },
+        onProxyReq(proxyReq) {
+          proxyReq.setHeader('Accept', '*/*')
+        }
       }
     }
   },
   // chainWebpack 这个库提供了一个 webpack 原始配置的上层抽象，使其可以定义具名的 loader 规则
   // 和具名插件，可以通过其提供的一些方法链式调用，在cli-service中就使用了这个插件
   chainWebpack: config => {
-    config.plugin('html').tap(args => {
-      args[0].title = name
-      return args
-    })
+    config
+      .plugin('html').tap(args => {
+        args[0].title = name
+        return args
+      })
+    config
+      .plugin('define').tap(args => {
+        // MY_ENV定义在了package.json，process.env.MY_ENV在全局使用
+        Object.assign(args[0]['process.env'], {
+          MY_ENV: JSON.stringify(MY_ENV)
+        })
+        return args
+      })
+      .end()
   },
   /*
     configureWebpack是调整webpack配置最简单的一种方式，可以新增也可以覆盖cli中的配置。
