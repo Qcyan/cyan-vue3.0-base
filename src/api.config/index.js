@@ -1,6 +1,6 @@
 // @/api.config
-const APIConfig = require('./apiConfig');
-const apiConfig = new APIConfig();
+const APIConfig = require('./apiConfig')
+const apiConfig = new APIConfig()
 apiConfig
   .add('mock', {
     test: 'https://test.com', // 测试环境地址
@@ -12,5 +12,5 @@ apiConfig
   })
 
 // 通过传入（'test','mock'）=> 得到对应链接 http://test.com
-module.exports = (myenv, branch) => apiConfig.get(myenv, branch);
+module.exports = (myenv, branch) => apiConfig.get(myenv, branch)
 

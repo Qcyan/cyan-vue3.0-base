@@ -1,12 +1,12 @@
 import { App } from 'vue'
 import axios from 'axios'
 import _merge from 'lodash/merge'
-import apiConfig from '@/api.config';
+import apiConfig from '@/api.config'
 
 export const _request = (config) => {
   let baseURL = ''
-  config.branch = config.branch || 'mock';
-  console.log('process.env.MY_ENV',process.env.MY_ENV)
+  config.branch = config.branch || 'mock'
+  console.log('process.env.MY_ENV', process.env.MY_ENV)
   // 开发模式开启代理
   if (process.env.NODE_ENV === 'development') {
     config.url = `/${config.branch}${config.url}` // /mock/comment/get.action
@@ -46,8 +46,8 @@ class Request {
   // public install: (app: App, ...options: any[]) => any;
   install(app, ...options) {}
   constructor() {
-    this.extends = []  // 存储所有请求类型的请求配置
-    this.install = () => {}
+    this.extends = [] // 存储所有请求类型的请求配置
+    // this.install = () => {}
   }
 
   extend(extend) {
@@ -59,10 +59,10 @@ class Request {
     const obj = this.extends.reduce((prev, curr) => {
       return _merge(prev, curr)
     }, {})
-    console.log(obj)
     Object.keys(obj).forEach(key => {
       Object.assign([key], obj[key])
     })
+    console.log(obj)
   }
 
   get(path, data = {}, config = {}) {
@@ -70,7 +70,7 @@ class Request {
       method: 'GET',
       url: path,
       params: data,
-      ...config,
+      ...config
     })
   }
 

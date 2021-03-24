@@ -8,7 +8,7 @@ export default {
   name: 'Home',
   setup() {
     const { ctx } = getCurrentInstance()
-    console.log(ctx)
+    console.log(ctx.$request)
 
     ctx.$Axios.get('/mock/comment/get.action', {}).then((res) => {
       console.log(res.data)

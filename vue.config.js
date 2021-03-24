@@ -39,18 +39,18 @@ module.exports = {
         pathRewrite: {
           '^/mock': ''
         }
-      },
-      '/jianshu': {
-        target: apiConfig(MY_ENV, 'jianshu'),
-        secure: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/jianshu': ''
-        },
-        onProxyReq(proxyReq) {
-          proxyReq.setHeader('Accept', '*/*')
-        }
       }
+      //      '/jianshu': {
+      //        target: apiConfig(MY_ENV, 'jianshu'),
+      //        secure: true,
+      //        changeOrigin: true,
+      //        pathRewrite: {
+      //          '^/jianshu': ''
+      //        },
+      //        onProxyReq(proxyReq) {
+      //          proxyReq.setHeader('Accept', '*/*')
+      //        }
+      //      }
     }
   },
   // chainWebpack 这个库提供了一个 webpack 原始配置的上层抽象，使其可以定义具名的 loader 规则

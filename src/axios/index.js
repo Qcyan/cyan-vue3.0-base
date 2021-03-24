@@ -1,6 +1,6 @@
 import axios from 'axios'
-import errorCode from './errorCode' // 错误码
-import errorHandle from './errorHandle' // 错误码处理
+import errorCode from './error/errorCode' // 错误码
+import errorHandle from './error/errorHandle' // 错误码处理
 import { $loading, $closeLoading } from '@plugin/element-ui/loading'
 
 let loadingInstance
