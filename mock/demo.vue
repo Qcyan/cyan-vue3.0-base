@@ -3,19 +3,24 @@
 </template>
 <script>
 import { getCurrentInstance } from 'vue'
+import useGlobal from '@/hooks/useGlobal'
 
 export default {
   name: 'Home',
   setup() {
+    const { $request } = useGlobal()
     const { ctx } = getCurrentInstance()
-    console.log(ctx.$request)
+    console.log($request)
 
     ctx.$Axios.get('/mock/comment/get.action', {}).then((res) => {
       console.log(res.data)
     })
 
     const requestSifou = async() => {
-      const { result } = await ctx.$request.get('/comment/get.action')
+      console.log($request.get.mock)
+      const { result } = await $request.get.mock('/comment/get.action')
+      // const { result } = await $request.get('/comment/get.action')
+
       console.log(result)
     }
     requestSifou()
