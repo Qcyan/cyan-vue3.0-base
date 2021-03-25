@@ -11,7 +11,7 @@ export const _request = (config) => {
   if (process.env.NODE_ENV === 'development') {
     config.url = `/${config.branch}${config.url}` // /mock/comment/get.action
   } else {
-    // 不使用proxy时,配置请求地址与域名一致
+    // 不使用proxy时,配置请求地址与域名一致，config.brach不用特意配置，在api.config中定义好即可
     baseURL = apiConfig(process.env.MY_ENV, config.branch) // 例如传入'test','mock'
   }
 
@@ -44,10 +44,9 @@ export const _request = (config) => {
 class Request {
   // request 要被作为一个插件，需要有 install 方法
   // public install: (app: App, ...options: any[]) => any;
-  install(app, ...options) {}
   constructor() {
     this.extends = [] // 存储所有请求类型的请求配置
-    // this.install = () => {}
+    this.install = () => {};
   }
 
   extend(extend) {
@@ -59,8 +58,9 @@ class Request {
     const obj = this.extends.reduce((prev, curr) => {
       return _merge(prev, curr)
     }, {})
+    // 扩展get post 方法,挂载到Request上，使可以.get.mock调用
     Object.keys(obj).forEach(key => {
-      Object.assign([key], obj[key])
+      Object.assign(this[key], obj[key])
     })
     console.log(obj)
   }
