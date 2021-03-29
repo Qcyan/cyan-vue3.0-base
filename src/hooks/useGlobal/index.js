@@ -1,11 +1,11 @@
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance } from 'vue'
 function useGlobal() {
   const {
     appContext: {
       config: { globalProperties }
     }
-  } = getCurrentInstance();
+  } = getCurrentInstance()
   console.log(getCurrentInstance())
-  return globalProperties;
+  return globalProperties
 }
-export default useGlobal;
+export default useGlobal

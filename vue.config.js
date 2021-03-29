@@ -24,7 +24,6 @@ const {
 // const WebpackBar = require('webpackbar')
 const { version, author } = require('./package.json')
 
-
 process.env.VUE_APP_TITLE = title || 'vue-cyan'
 process.env.VUE_APP_VERSION = version
 
@@ -47,10 +46,10 @@ module.exports = {
     open: true,
     noInfo: false,
     overlay: {
-      warnings: true,
+      warnings: false,
       errors: true
     },
-    // after: mockServer(),
+    before: mockServer(),
     proxy: {
       '/api': {
         target: 'http://120.78.194.238:9999', // Set the domain name and port number of the interface you call
@@ -61,7 +60,7 @@ module.exports = {
       },
       // [process.env.VUE_APP_BASE_API]: {
       '/mock': {
-        target: `http://localhost:3000`,
+        target: `http://localhost:3300`,
         changeOrigin: true,
         pathRewrite: {
           '^/mock': ''
@@ -87,14 +86,24 @@ module.exports = {
     //   args[0].title = name
     //   return args
     // })
-    config.plugin('define').tap(args => {
+    config.plugin('define')
+      .tap(args => {
       // MY_ENV定义在了package.json，process.env.MY_ENV在全局使用
-      Object.assign(args[0]['process.env'], {
-        MY_ENV: JSON.stringify(MY_ENV)
+        Object.assign(args[0]['process.env'], {
+          MY_ENV: JSON.stringify(MY_ENV)
+        })
+        return args
       })
-      return args
-    })
       .end()
+    config.when(process.env.NODE_ENV !== 'development', (config) => {
+      return {
+        plugins: [new CompressionWebpackPlugin({
+          test: /\.(js|css)(\?.*)?$/i, // 需要压缩的文件正则
+          threshold: 10240, // 文件大小大于这个值时启用压缩
+          deleteOriginalAssets: false // 压缩后保留原文件
+        })]
+      }
+    })
   },
   /*
     configureWebpack是调整webpack配置最简单的一种方式，可以新增也可以覆盖cli中的配置。
@@ -122,17 +131,15 @@ module.exports = {
       ]
     }
   },
-  // configureWebpack: config => {
-  //   // gzip 压缩js css json
-  //   if (process.env.NODE_ENV === 'production') {
-  //     config.plugins.push(
-  //       new CompressionWebpackPlugin({
-  //         algorithm: 'gzip',
-  //         test: new RegExp('\\.(' + ['js', 'css', 'json'].join('|') + ')$'),
-  //         threshold: 10240,
-  //         minRatio: 0.8
-  //       })
-  //     )
+  // configureWebpack: (config) => {
+  //   if (process.env.NODE_ENV === 'production') {//GZIP压缩
+  //     return {
+  //       plugins: [new CompressionWebpackPlugin({
+  //         test: /\.(js|css)(\?.*)?$/i,  //需要压缩的文件正则
+  //         threshold: 10240,  //文件大小大于这个值时启用压缩
+  //         deleteOriginalAssets: false  //压缩后保留原文件
+  //       })]
+  //     }
   //   }
   // },
   css: {
@@ -141,5 +148,9 @@ module.exports = {
         prependData: '@import "@/assets/css/index.scss";'
       }
     }
+  },
+  // 第三方插件配置
+  pluginOptions: {
+    // ...
   }
 }

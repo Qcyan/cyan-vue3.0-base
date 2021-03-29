@@ -47,7 +47,7 @@ export default {
     console.log(ctx.$axios)
     console.log(ctx.$store)
 
-    ctx.$Axios.get('/mock/comment/get.action', {}).then((res) => {
+    ctx.$Axios.get('/mock/comment/getAction', {}).then((res) => {
       console.log(res.data)
     })
 
@@ -85,11 +85,9 @@ function init() {
       console.log(res)
     })
 
-
     home.user().then(res => {
       console.log(res)
     })
-
   }
 
   return { x, double }
