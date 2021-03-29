@@ -12,13 +12,13 @@ export default {
     const { ctx } = getCurrentInstance()
     console.log($request)
 
-    ctx.$Axios.get('/mock/comment/get.action', {}).then((res) => {
+    ctx.$Axios.get('/mock/comment/getAction', {}).then((res) => {
       console.log(res.data)
     })
 
     const requestSifou = async() => {
       console.log($request.get.mock)
-      const { result } = await $request.get.mock('/comment/get.action')
+      const { result } = await $request.get.mock('/comment/getAction')
       // const { result } = await $request.get('/comment/get.action')
 
       console.log(result)

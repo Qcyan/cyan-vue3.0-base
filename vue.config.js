@@ -1,29 +1,56 @@
-'use strict'
+
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const isProduction = process.env.NODE_ENV === 'production'
-const path = require('path')
 const name = '叫号大屏'
 const port = process.env.port || process.env.npm_config_port || 8899 // dev port
 const apiConfig = require('./src/api.config')
-const MY_ENV = process.env.MY_ENV
 
-function resolve(dir) {
-  return path.join(__dirname, dir)
+const path = require('path')
+
+const {
+  publicPath,
+  assetsDir,
+  outputDir,
+  lintOnSave,
+  transpileDependencies,
+  title,
+  devPort,
+  providePlugin,
+  build7z,
+  donation
+} = require('./src/config/setting.config.js')
+
+// const Webpack = require('webpack')
+// const WebpackBar = require('webpackbar')
+const { version, author } = require('./package.json')
+
+
+process.env.VUE_APP_TITLE = title || 'vue-cyan'
+process.env.VUE_APP_VERSION = version
+
+const MY_ENV = process.env.MY_ENV
+const resolve = (dir) => path.join(__dirname, dir)
+const mockServer = () => {
+  if (process.env.NODE_ENV === 'development') return require('./mock3/mock-server.js')
+  else return ''
 }
 
 module.exports = {
-  publicPath: isProduction ? '/' : './',
-  outputDir: 'dist',
-  assetsDir: 'static',
-  lintOnSave: true,
-  productionSourceMap: false,
+  publicPath,
+  assetsDir,
+  outputDir,
+  lintOnSave,
+  transpileDependencies,
   devServer: {
-    port: port,
-    open: false,
+    hot: true,
+    port: devPort,
+    open: true,
+    noInfo: false,
     overlay: {
-      warnings: false,
+      warnings: true,
       errors: true
     },
+    // after: mockServer(),
     proxy: {
       '/api': {
         target: 'http://120.78.194.238:9999', // Set the domain name and port number of the interface you call
@@ -56,19 +83,17 @@ module.exports = {
   // chainWebpack 这个库提供了一个 webpack 原始配置的上层抽象，使其可以定义具名的 loader 规则
   // 和具名插件，可以通过其提供的一些方法链式调用，在cli-service中就使用了这个插件
   chainWebpack: config => {
-    config
-      .plugin('html').tap(args => {
-        args[0].title = name
-        return args
+    // config.plugin('html').tap(args => {
+    //   args[0].title = name
+    //   return args
+    // })
+    config.plugin('define').tap(args => {
+      // MY_ENV定义在了package.json，process.env.MY_ENV在全局使用
+      Object.assign(args[0]['process.env'], {
+        MY_ENV: JSON.stringify(MY_ENV)
       })
-    config
-      .plugin('define').tap(args => {
-        // MY_ENV定义在了package.json，process.env.MY_ENV在全局使用
-        Object.assign(args[0]['process.env'], {
-          MY_ENV: JSON.stringify(MY_ENV)
-        })
-        return args
-      })
+      return args
+    })
       .end()
   },
   /*
@@ -77,25 +102,39 @@ module.exports = {
     也可以是一个函数：如果你需要基于环境有条件地配置行为，就可以进行一些逻辑处理，可以直接修改或新增配置，(该函数会在环境变量被设置之后懒执行)。该方法的第一个参数会收到已经解析好的配置。
     在函数内，你可以直接修改配置，或者返回一个将会被合并的对象。
   */
-  configureWebpack: config => {
-    // gzip 压缩js css json
-    if (process.env.NODE_ENV === 'production') {
-      config.plugins.push(
-        new CompressionWebpackPlugin({
-          algorithm: 'gzip',
-          test: new RegExp('\\.(' + ['js', 'css', 'json'].join('|') + ')$'),
-          threshold: 10240,
-          minRatio: 0.8
-        })
-      )
+  configureWebpack() {
+    return {
+      resolve: {
+        alias: {
+          '@': resolve('src'),
+          '@components': resolve('src/components'),
+          '@views': resolve('src/views'),
+          '@assets': resolve('src/assets'),
+          '@axios': resolve('src/axios'),
+          '@plugin': resolve('src/plugin')
+        }
+      },
+      plugins: [
+        // new Webpack.ProvidePlugin(providePlugin),
+        // new WebpackBar({
+        //   name: webpackBarName,
+        // }),
+      ]
     }
-    config.resolve.alias['@'] = resolve('src')
-    config.resolve.alias['@components'] = resolve('src/components')
-    config.resolve.alias['@views'] = resolve('src/views')
-    config.resolve.alias['@assets'] = resolve('src/assets')
-    config.resolve.alias['@axios'] = resolve('src/axios')
-    config.resolve.alias['@plugin'] = resolve('src/plugin')
   },
+  // configureWebpack: config => {
+  //   // gzip 压缩js css json
+  //   if (process.env.NODE_ENV === 'production') {
+  //     config.plugins.push(
+  //       new CompressionWebpackPlugin({
+  //         algorithm: 'gzip',
+  //         test: new RegExp('\\.(' + ['js', 'css', 'json'].join('|') + ')$'),
+  //         threshold: 10240,
+  //         minRatio: 0.8
+  //       })
+  //     )
+  //   }
+  // },
   css: {
     loaderOptions: {
       sass: {

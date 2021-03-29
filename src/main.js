@@ -6,11 +6,11 @@ import '@assets/js/rem.js'
 import plugin from './plugin'
 import { useVueComponents } from './vueComponents'
 import config from '@/config'
-import request from '@/axios/index2';
+import request from '@/axios/index2'
 
-// import { mockXHR } from '../mock'
+// import { mockXHR } from '../mock3/mock-server'
 // if (process.env.NODE_ENV === 'production') {
-//  mockXHR()
+//   mockXHR()
 // }
 
 const app = createApp(App)
