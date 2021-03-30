@@ -19,3 +19,12 @@
 根目录下```gulp mock```运行，可实时更新
 
 mock接口的前缀要加上`````/mock`````,通过前缀区分是mock接口数据还是真实后台接口数据。
+
+项目 问题：
+npm install --save-dev  image-webpack-loader 
+npm install --save-dev  compression-webpack-plugin
+cnpm install webpack-image-loader就能将 gifsicle 下载下来
+1.vue.config.js中引入的mock有问题还未解决
+2.图片压缩问题  
+
+
