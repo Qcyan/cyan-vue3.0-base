@@ -24,28 +24,28 @@ export const constantRoutes = [
     name: '404',
     component: () => import('@views/errorPage/404'),
     hidden: true
-  },
-  {
-    path: '',
-    redirect: 'home',
-    component: () => import('@/views/layout.vue'),
-    children: [
-      {
-        path: 'home',
-        name: 'Home',
-        component: () => import('@/views/Home.vue')
-      }
-    ]
   }
-
 ]
 
 export const asyncRoutes = routes
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes: constantRoutes
+  // 需要做权限动态加载路由时
+  // routes: constantRoutes
+  // 加载全部路由
+  routes: [
+    ...routes,
+    ...constantRoutes
+  ]
 })
+
+// 重置为初始路由
+export function resetRouter() {
+  router.matcher = createRouter({
+    routes: constantRoutes
+  }).matcher
+}
 
 export default router
 

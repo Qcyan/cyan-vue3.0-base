@@ -1,5 +1,6 @@
 import router from '@/router'
 import store from '@/store'
+import getPageTitle from '@/utils/pageTitle'
 import VabProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -20,7 +21,6 @@ VabProgress.configure({
 router.beforeEach(async(to, from, next) => {
   if (progressBar) VabProgress.start()
   let hasToken = store.getters['user/accessToken']
-
   if (!loginInterception) hasToken = true
 
   if (hasToken) {
@@ -50,11 +50,12 @@ router.beforeEach(async(to, from, next) => {
             // 后端权限只控制permissions
             accessRoutes = await store.dispatch('routes/setRoutes', permissions)
           } else if (authentication === 'all') {
-            // accessRoutes = await store.dispatch('routes/setAllRoutes')
+            // 后端返回可渲染页面的路由，前端只负责渲染
+            accessRoutes = await store.dispatch('routes/setAllRoutes')
           }
 
           // 添加路由
-          router.addRoutes(accessRoutes)
+          router.addRoute(accessRoutes)
           next({ ...to, replace: true })
         } catch {
           console.log('catch done')
@@ -63,10 +64,20 @@ router.beforeEach(async(to, from, next) => {
         }
       }
     }
+  } else {
+    if (routesWhiteList.indexOf(to.path) !== -1) {
+      next()
+    } else {
+      if (recordRoute) {
+        next(`/login?redirect=${to.path}`)
+      } else {
+        next('/login')
+      }
+      if (progressBar) VabProgress.done()
+    }
   }
-  next()
+  document.title = getPageTitle(to.meta.title)
 })
 router.afterEach(() => {
   if (progressBar) VabProgress.done()
 })
-console.log(router)

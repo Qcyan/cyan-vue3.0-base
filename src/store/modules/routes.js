@@ -7,11 +7,11 @@ import { convertRouter, filterAsyncRoutes } from '@/utils/handleRoutes'
 
 const state = () => ({
   routes: [],
-  partialRoutes: [],
+  partialRoutes: []
 })
 const getters = {
   routes: (state) => state.routes,
-  partialRoutes: (state) => state.partialRoutes,
+  partialRoutes: (state) => state.partialRoutes
 }
 const mutations = {
   setRoutes(state, routes) {
@@ -22,7 +22,7 @@ const mutations = {
   },
   setPartialRoutes(state, routes) {
     state.partialRoutes = constantRoutes.concat(routes)
-  },
+  }
 }
 const actions = {
   async setRoutes({ commit }, permissions) {
@@ -37,8 +37,9 @@ const actions = {
     commit('setRoutes', finallyAsyncRoutes)
     return finallyAsyncRoutes
   },
+
   async setAllRoutes({ commit }) {
-    let { data } = await getRouterList()
+    let { data } = await getRouterList() // 路由数组
     data.push({ path: '*', redirect: '/404', hidden: true })
     let accessRoutes = convertRouter(data)
     commit('setAllRoutes', accessRoutes)
@@ -47,6 +48,6 @@ const actions = {
   setPartialRoutes({ commit }, accessRoutes) {
     commit('setPartialRoutes', accessRoutes)
     return accessRoutes
-  },
+  }
 }
 export default { state, getters, mutations, actions }

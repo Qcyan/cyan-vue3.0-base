@@ -6,7 +6,7 @@
   </div>
   <div class="home">
     x:{{ x }},doubleX:{{ doubleX }}
-    <img alt="Vue logo" src="../assets/logo.png" class="cy-pd-lr-10px" />
+    <img alt="Vue logo" src="../assets/image/logo.png" class="cy-pd-lr-10px" />
     <HelloWorld @accepted="accepted" msg="Welcome to Your Vue.js App" />
   </div>
 

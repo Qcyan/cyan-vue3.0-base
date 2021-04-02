@@ -1,23 +1,27 @@
 // initial state
 import { getUserInfo, login, logout } from '@/api/user'
 import { tokenName } from '@/config/setting.config.js'
+import { resetRouter } from '@/router'
+
 import {
   getAccessToken,
   removeAccessToken,
-  setAccessToken,
+  setAccessToken
 } from '@/utils/accessToken'
 
 const state = () => ({
   accessToken: getAccessToken(),
   permissions: [],
-
+  username: '',
+  avatar: ''
 })
 
 // getters
 const getters = {
   accessToken: (state) => state.accessToken,
   permissions: (state) => state.permissions,
-
+  username: (state) => state.username,
+  avatar: (state) => state.avatar
 }
 
 // actions
@@ -39,10 +43,27 @@ const actions = {
       commit('setAvatar', avatar)
       return permissions
     } else {
-      // Vue.prototype.$baseMessage('用户信息接口异常', 'error')
+      // console.log('用户信息接口异常', 'error')
       return false
     }
   },
+  resetAccessToken({ commit }) {
+    commit('setPermissions', [])
+    commit('setAccessToken', '')
+    removeAccessToken()
+  },
+  async login({ commit }, userInfo) {
+    const { data } = await login(userInfo)
+    const accessToken = data[tokenName]
+    if (accessToken) {
+      commit('setAccessToken', accessToken)
+    }
+  },
+  async logout({ dispatch }) {
+    await logout(state.accessToken)
+    await dispatch('resetAccessToken')
+    await resetRouter()
+  }
 }
 
 // mutations
@@ -59,7 +80,7 @@ const mutations = {
   },
   setPermissions(state, permissions) {
     state.permissions = permissions
-  },
+  }
 }
 
 export default { state, getters, mutations, actions }
